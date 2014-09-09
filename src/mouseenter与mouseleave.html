@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mouseenter与mouseleave修复</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<div id="result"
+     style="position:absolute;right:100px;top:5px;width:250px;height:400px;border:2px solid gray;overflow:auto;">
+</div>
+<h3>1，鼠标在div[id=parent1]内部移动时会触发mouseover事件</h3>
+
+<div id="parent1" style="width:400px;border:1px solid gray;padding:5px;">
+    <div id="child11" style="width:100px;height:100px;background:gold;float:left;">Child11</div>
+    <div id="child12" style="width:100px;height:100px;background:gold;float:right;">Child12</div>
+    <div style="clear:both;"></div>
+</div>
+<br/>
+
+<h3>2，鼠标在div[id=parent2]内部移动时不会触发mouseenter事件</h3>
+
+<div id="parent2" style="width:400px;border:1px solid gray;padding:5px;">
+    <div id="child21" style="width:100px;height:100px;background:gold;float:left;">Child21</div>
+    <div id="child22" style="width:100px;height:100px;background:gold;float:right;">Child22</div>
+    <div style="clear:both;"></div>
+</div>
+
+<script type="text/javascript">
+
+    function addEvent(el, type, fn) {
+        if (el.attachEvent) {
+            el.attachEvent('on' + type, function () {
+                fn.call(el, window.event);
+            });
+        } else {
+            el.addEventListener(type, fn, false);
+        }
+    }
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    var p1 = $('parent1'),
+            p2 = $('parent2');
+
+    function fn(e) {
+        var d = document.createElement('div');
+        d.innerHTML = e.type;
+        $('result').appendChild(d);
+    }
+
+    addEvent(p1, 'mouseenter', fn);
+    addEvent(p2, 'mouseleave', fn);
+    //mouseover与mouseout的问题是 移动到子节点上也会触发事件
+    //    addEvent(p1,'mouseover',fn);
+    //    addEvent(p2,'mouseout',fn);
+    addEvent(p1, 'mouseover', function (e) {
+        var ret, target = this, related = e.relatedTarget;
+        if (related !== target && !elContains(target, related)) {
+            console.log('进入...............');
+        } else {
+            return false;
+        }
+    });
+
+    addEvent(p2, 'mouseout', function (e) {
+        var ret, target = this, related = e.relatedTarget;
+        if (related !== target && !elContains(target, related)) {
+            console.log('离开................');
+        } else {
+            return false;
+        }
+    });
+
+
+
+    //el.compareDocumentPosition();方法可以替换如下方法
+    function elContains(parentEl, sonEl) {
+        if(sonEl === document.documentElement) {
+            return false;
+        }
+        while ((sonEl = sonEl.parentNode) !== document.documentElement) {
+            if (sonEl === parentEl) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+</script>
+
+</body>
+</html>

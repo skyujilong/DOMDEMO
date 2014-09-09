@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>domReady</title>
+    <meta charset="utf-8">
+    <script>
+
+        (function IEContentLoaded(w,fn){
+            var d = w.document, done = false,
+                    init = function(){
+                        //只执行一次
+                        if(!done){
+                            done = true;
+                            fn();
+                        }
+                    };
+            (function(){
+                try{
+                    //兼容IE的写法，IE在所有的DOM加载完毕之前 doScroll是会发生异常的
+                    d.documentElement.doScroll('left');
+                }catch(e){
+                    setTimeout(arguments.callee,50);
+                    return;
+                }
+                init();
+            })();
+
+            d.onreadystatechange = function(){
+                console.log(d.readyState);
+                if(d.readyState == 'complete'){
+                    d.onreadystatechange = null;
+                    init();
+                }
+            }
+        })(window,function(){
+            alert("加载完成");
+        });
+
+    </script>
+</head>
+<body>
+    <h1>domReady探寻</h1>
+</body>
+</html>

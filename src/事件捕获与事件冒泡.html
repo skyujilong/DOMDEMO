@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>事件捕获与事件冒泡</title>
+    <meta charset="utf-8">
+    <script>
+        window.onload = function(){
+            var btn = document.getElementById('check');
+            //执行顺序 与 事件定义顺序有关系
+            btn.addEventListener('click',function(){
+                console.log("事件捕获running............");
+            },true);
+            btn.addEventListener('click',function(){
+                console.log("事件冒泡running2............");
+            },false);
+            btn.addEventListener('click',function(){
+                console.log("事件冒泡running1............");
+            },false);
+
+
+        };
+    </script>
+</head>
+<body>
+    <div>
+        <input type="button" value="check me" id="check" />
+    </div>
+</body>
+</html>

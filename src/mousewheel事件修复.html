@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mousewheel修复</title>
+    <meta charset="utf-8">
+    <style>
+        #view {
+            height: 2000px;
+        }
+    </style>
+    <script>
+
+        function addEvent(el, type, callback) {
+            var returnCallBackFn;
+            if (el.addEventListener) {
+                returnCallBackFn = callback;
+                el.addEventListener(type, callback, false);
+            } else {
+                returnCallBackFn = function () {
+                    callback.call(el, window.event);
+                };
+                el.attachEvent('on' + type, returnCallBackFn);
+            }
+
+            //返回句柄，方便删除该函数
+            return returnCallBackFn;
+        }
+
+        var wheel = function (obj, callback) {
+            //firefox 不支持这个事件
+            var wheelType = "mousewheel";
+            try {
+                //firefox并不会报错。。。。
+                document.createEvent("MouseScrollEvents");
+                wheelType = "DOMMouseScroll";
+            } catch (e) {
+            }
+
+            addEvent(obj, wheelType, function (event) {
+                //修复firfox 上滚动为-3 其他是120  mac的 有浮点数据去整
+                if ("wheelDelta" in event) {
+                    //开辟新的属性 用于屏蔽浏览器之间 的数值问题
+                    var delta = event.wheelDelta;
+                    //opera 9 x系列的滚动方向与ie一致
+                    if (window.opera && opera.version() < 10) {
+                        delta = -delta;
+                    }
+                    //修复mac浮点数据
+                    event.delta = Math.round(event.wheelDelta) / 120;
+                } else if ("detail" in event) {
+                    event.wheelDelta = -event.detail * 40;
+                    event.delta = event.wheelDelta / 120;
+                }
+                callback.call(obj, event);
+            });
+
+        };
+
+        window.onload = function () {
+            wheel(document.getElementById("view"), function (e) {
+                //如果希望有一个记录滚动次数  到达次数在发生滚屏，可以启用一个var来记录这个数字，还可以调
+                // 用一个setTimeout来记录一个超时事件，超时就清零
+                console.log(e.delta);
+            });
+        }
+
+    </script>
+</head>
+<body>
+
+<div id="view"></div>
+
+</body>
+</html>

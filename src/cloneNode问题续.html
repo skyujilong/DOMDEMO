@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>select节点clone的问题</title>
+    <meta charset="utf-8">
+    <script>
+        window.onload = function () {
+//            var div = document.createElement('div');
+//            div.id = "haha";
+//            div.className = "hehe";
+//            div.setAttribute("prop","123");
+//            document.body.appendChild(div);
+//            $('cloneBtn')
+            //BUG 当select的选中的option发生改变的时候，你克隆过去的数据 不是改变过的 选中Option
+            addEventHandler($("cloneBtn"),'click',function(e){
+                var selectSource = document.getElementsByTagName('select')[0];
+                document.body.appendChild(selectSource.cloneNode(true));
+            });
+            //ie 竟然还能把事件给clone过去。。。。。。。。
+            //fix clone
+            //可以考虑用outerHTML
+            addEventHandler($('fixCloneBtn'),'click',function(e){
+                //ie6 7 8能用outerHTML进行处理select问题
+                var selectSource = document.getElementsByTagName('select')[0];
+                if(!+'\v1'){
+                    var div = document.createElement('div');
+                    div.innerHTML = selectSource.outerHTML;
+                    console.log(selectSource.outerHTML);
+                    document.body.appendChild(div.firstChild);
+                }else{
+                    console.log('标准浏览器处理');
+                    var cloneSelect = selectSource.cloneNode(true);
+                    //手动设置选中的是那个。。。。
+                    cloneSelect.selectedIndex = selectSource.selectedIndex;
+                    document.body.appendChild(cloneSelect);
+                }
+
+            });
+
+            addEventHandler(document.getElementsByTagName('select')[0],'change',function(e){
+                console.log(this.selectedIndex);
+            });
+
+        };
+        function $(id){
+            return document.getElementById(id + '');
+        }
+
+        function addEventHandler(el,type,fn){
+            if(el.attachEvent){
+                el.attachEvent('on' + type, function(){
+                    fn.call(el,window.event);
+                });
+            }else{
+                el.addEventListener(type,fn,false);
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+
+<select name="select">
+    <option value="op1">op1</option>
+    <option value="op2">op2</option>
+    <option value="op3">op3</option>
+</select>
+<input id="cloneBtn" type="button" value="clone"/>
+<input id="fixCloneBtn" type="button" value="fix_clone"/>
+
+</body>
+</html>

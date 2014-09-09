@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ie下removeChild会发生内存泄漏</title>
+    <meta charset="utf-8">
+    <script>
+
+        window.onload = function () {
+            var btn = $('remove');
+            var fixBtn = $('fix_remove');
+            addEvent(btn,'click',function(e){
+                if($('target').parentNode){
+                    var tmp = $("target").parentNode.removeChild($('target'));
+                    //IE 6、7、8的removeChild会发生内存泄漏
+                    //在非ie下 下面输出的是错误，既删除的dom是没有parentNode的
+                    //但是在ie下会输出的是11，nodeType=11 代表的是documentFragment元素，这就导致了删除的元素并不在ie内释放
+                    //泄漏自然就发生了
+                    console.log(tmp.parentNode.nodeType);
+                }else{
+                    document.body.removeChild($('target'));
+                }
+            });
+            //解决办法
+
+            addEvent(fixBtn,'click',function(e){
+                fixRemoveChild($('target'));
+            });
+
+            var fixRemoveChild = (function(){
+                var div;
+                return function(el){
+                    //ie
+                    if(!+'\v1' && el){
+                        div = div || document.createElement('div');
+                        div.appendChild(el);
+                        div.innerHTML = "";
+                    }else if(el && el.parentNode && el.tagName.toLowerCase() !== 'body'){
+                        el.parentNode.removeChild(el);
+                    }
+                }
+            })();
+        };
+
+        function $(id){
+            return typeof id === "string" ? document.getElementById(id) : id;
+        }
+
+        function addEvent(el,type,fn){
+            if(el.attachEvent){
+                el.attachEvent('on' + type,function(){
+                    fn.call(el,window.event);
+                });
+            }else{
+                el.addEventListener(type,fn,false);
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+
+
+<ul>
+    <li id="target">1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+
+<input id="remove" value="remove" type="button">
+<input id="fix_remove" value="fix_remove" type="button">
+</body>
+</html>

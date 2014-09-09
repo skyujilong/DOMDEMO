@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>节点插入</title>
+    <meta charset="utf-8">
+    <script>
+
+        window.onload = function () {
+
+            var btns = document.getElementsByTagName("button");
+            var html = '<h1>这里是插入的</h1>';
+            var ul = document.getElementsByTagName('ul')[0];
+            Array.prototype.forEach.call(btns, function (dom) {
+
+                addEventHandler(dom, 'click', function (e) {
+//                    var target = e.srcElement || e.currentTarget;
+//                    switch (target.className.toLowerCase()) {
+                    switch (this.className.toLowerCase()) {
+                        case 'beforebegin':
+                            insertHTML(ul, 'beforebegin', html);
+                            break;
+                        case 'afterbegin' :
+                            insertHTML(ul, 'afterBegin', html);
+                            break;
+                        case 'beforeend' :
+                            insertHTML(ul, 'beforeEnd', html);
+                            break;
+                        case 'afterend' :
+                            insertHTML(ul, 'afterEnd', html);
+                            break;
+                    }
+
+                });
+
+            });
+
+
+        };
+
+        function insertHTML(el, where, html) {
+            if (!el) {
+                return false;
+            }
+
+            where = where.toLowerCase();
+
+            if (el.insertAdjacentHTML) {
+                el.insertAdjacentHTML(where, html);
+            } else {
+                /**
+                 * 通过Range对象来进行插入操作
+                 */
+                var range = el.ownerDocument.createRange(),
+                        frag = null;
+                switch (where) {
+                    case "beforebegin" :
+                        range.setStartBefore(el);
+                        frag = range.createContextualFragment(html);
+                        el.parentNode.insertBefore(frag, range);
+                        return el.previousSibling;
+                    case "afterbegin"  :
+                        if (el.firstChild) {
+
+                            range.setStartBefore(el.firstChild);
+                            frag = range.createContextualFragment(html);
+                            el.insertBefore(frag, el.firstChild);
+
+                        } else {
+                            el.innerHTML(html);
+                        }
+                        return el.firstChild;
+                    case "beforeend" :
+                        if (el.firstChild) {
+
+                            range.setEndAfter(el.lastChild);
+                            frag = range.createContextualFragment(html);
+                            el.appendChild(frag);
+
+                        } else {
+                            el.innerHTML(html);
+                        }
+                        return el.lastChild;
+                    case "afterend":
+                        range.setEndAfter(el);
+                        frag = range.createContextualFragment(html);
+                        el.parentNode.insertBefore(frag, el.nextSibling);
+                        return el.nextSibling;
+                }
+            }
+
+        }
+
+        var forEach = (function () {
+            var i , len;
+            if (!Array.prototype.forEach) {
+                Array.prototype.forEach = function (arr, fn) {
+                    arr = [].splice.call(arr, 0);
+                    if (arr instanceof Array) {
+
+                        for (i = 0, len = arr.length; i < len; i++) {
+                            fn(arr[i], i);
+                        }
+                    }
+                };
+            }
+        })();
+
+        function addEventHandler(dom, type, fn) {
+            if (document.attachEvent) {
+
+                dom.attachEvent('on' + type, function () {
+                    fn.call(dom, window.event);
+                });
+
+            } else {
+                dom.addEventListener(type, fn, false);
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<ul>
+
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+
+</ul>
+
+<button class="beforeBegin">beforeBegin：在ul元素前插入</button>
+<button class="afterBegin">afterBegin：在ul元素第一个子元素前插入</button>
+<button class="beforeEnd">beforeEnd：在ul元素最后一个子元素后面插入</button>
+<button class="afterEnd">afterEnd：在ul元素后插入</button>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>对象杂糅</title>
+    <meta charset="utf-8">
+    <script>
+
+        function mix(target, source) {
+            var args = [].slice.call(arguments), i = 1, key,
+                    //最后一个值判断是否是一个boolean的值，如果不是，按照覆盖进行操作，如果是boolean的话 true：进行覆盖，false：不覆盖属性
+                    ride = typeof args[args.length - 1] == "boolean" ? args.pop() : true;
+            if(args.length === 1){
+                target = !this.window ? this : {};
+                i = 0;
+            }
+
+            while((source = args[i ++])){
+                for(key in source){
+                    if(ride || !(key in target)){
+                        target[key] = source[key];
+                    }
+                }
+            }
+
+            return target;
+
+        }
+
+
+        var obj1 = {
+            a:'haha',
+            b:'ceshi',
+            c:'woqu',
+            d:'原有的值'
+        };
+
+        var obj2 = {
+            d:'ss',
+            e:'adfa',
+            f:'11123'
+        };
+
+
+        console.log(mix(obj2,obj1,false));
+
+    </script>
+</head>
+<body>
+    <h1>对象杂糅</h1>
+</body>
+</html>

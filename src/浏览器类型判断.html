@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>浏览器类型判断</title>
+    <meta charset="utf-8">
+    <script>
+        /**
+         * IE判断
+         * @type {boolean}
+         */
+        ie678 = !+'\v1';
+        ie8 = !!window.toStaticHTML;
+        ie9 = document.documentMode && document.documentMode === 9 ;
+        console.log("ie678:"+ie678);
+        console.log("ie8:" + ie8);
+        console.log("ie9:" + ie9);
+        /**
+         * chrome判断
+         */
+        chrome = !!(window.chrome);
+        console.log("chrome:" + chrome);
+        /**
+         * firefox
+         */
+        firefox = !!window.updateCommands;
+        console.log('firefox:' + firefox);
+        /**
+         * opera
+         */
+        opera = !!window.opera;
+        console.log('opera:' + opera);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

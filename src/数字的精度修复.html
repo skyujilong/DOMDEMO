@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数字的精度修复</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+
+<input type="text" name="first"/>
+<span>+</span>
+<input type="text" name="second"/>
+<span>=</span>
+<input type="text" name="rest" value="" readonly>
+<button id="fixed">toFixed方式</button>
+<button id="ten">通过10的倍数方式</button>
+<span style="display: block;font-size: 18px;" id="msg"></span>
+<script>
+
+    function addEventHandler(el, type, fn) {
+        if (!fn instanceof Function) {
+            throw new Error("参数3 不是function对象");
+        }
+        if (document.attachEvent) {
+            el.attachEvent('on' + type, function () {
+                fn.call(el, window.event);
+            });
+        } else {
+            el.addEventListener(type, fn, false);
+        }
+    }
+    var first, second, result;
+
+    (function () {
+        var inputs = document.getElementsByTagName('input'), i, len;
+        for (i = 0, len = inputs.length; i < len; i++) {
+            var currentDom = inputs[i];
+            switch (currentDom.getAttribute("name")) {
+                case "first":
+                    first = currentDom;
+                    break;
+                case "second":
+                    second = currentDom;
+                    break;
+                case "rest":
+                    result = currentDom;
+                    break;
+            }
+        }
+
+    })();
+
+
+    addEventHandler(document.getElementById('fixed'), 'click', function (e) {
+        if (validateNum(first.value) && validateNum(second.value)) {
+            result.value = (+first.value + +second.value).toFixed(2);
+        } else {
+            document.getElementById("msg").innerHTML='输入的数字不合乎规格';
+        }
+    });
+
+    addEventHandler(document.getElementById('ten'), 'click', function (e) {
+        if (validateNum(first.value) && validateNum(second.value)) {
+            result.value = Math.formatFloat((+first.value + +second.value),1);
+        } else {
+            document.getElementById("msg").innerHTML='输入的数字不合乎规格';
+        }
+    });
+    /**
+     * 通过乘积使得
+     * @param f 计算的结果
+     * @param digit 10的几次方
+     * @returns {number}
+     */
+    Math.formatFloat = function(f,digit){
+        var m = Math.pow(10,digit);
+        return parseInt(f * m, 10) / m;
+
+    };
+
+    function validateNum(num) {
+        num = +num;
+        if (typeof num === 'number' && !isNaN(num) && isFinite(num)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>
+
+</body>
+</html>

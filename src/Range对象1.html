@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>range对象，节点</title>
+    <meta charset="utf-8">
+    <script>
+
+        window.onload = function(){
+            var range = document.createRange();
+            range.setStartAfter(document.getElementById('d1').firstChild);
+            range.setEndAfter(document.getElementById("d1").lastChild);
+//            console.log(range.toString());
+
+//            var frag = range.cloneContents();
+//
+//            console.log(frag);
+//
+//            document.body.appendChild(frag);
+
+            range.deleteContents();
+        };
+
+    </script>
+</head>
+<body>
+    <h1>range createRange cloneContents可以用来复制节点,也可以调用Range.deleteContents()删除选中的节点</h1>
+    <div id="d1">
+
+        <div id = "d2"></div>
+        <div id = "d3"></div>
+        <div id = "d4"></div>
+
+
+    </div>
+
+</body>
+</html>

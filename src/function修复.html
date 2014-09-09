@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>function方法修复与扩展</title>
+    <meta charset="utf-8">
+    <script>
+
+
+        Function.prototype.bind = function(context){
+
+
+            if(arguments.length < 2 && context == void 0){
+                return this;
+            }
+
+            var __method = this, args = [].splice.call(arguments, 1);
+            return function(){
+                __method.apply(context,args.concat.apply(args,arguments));
+            }
+
+        };
+
+
+
+
+    </script>
+</head>
+<body>
+    <h1>ie8下有效attachEvent方法在ie8以下版本有</h1>
+    <button id="clickId">click me</button>
+    <script type="text/javascript">
+
+        var clickDom = document.getElementById('clickId');
+        clickDom.attachEvent('onclick',clickEvent.bind(clickDom,window.event));
+
+
+        function clickEvent(event){
+            alert(this);
+            alert(event.srcElement);
+        }
+
+    </script>
+</body>
+</html>

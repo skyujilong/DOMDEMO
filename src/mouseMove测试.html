@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试mouseMovse</title>
+    <meta charset="utf-8">
+    <style>
+        #box{
+            top:20px;
+            left:10px;
+        }
+    </style>
+    <script>
+        /**
+         * 当用Mouseup事件的时候会产生BUG，主要是因为鼠标移动过快，导致没有执行mouseUp事件，
+         * 请用Mousemove中的 判断是否是左键点击状态来判断
+         */
+        window.onload = function () {
+            var box = $('box');
+            var flagMove = false;
+            var dropWhere = {};
+            addEvent(box,'mousedown',function(e){
+                flagMove = true;
+                stopPropagationFix(e);
+                var elPos = getPos(this);
+                dropWhere.x = e.clientX - elPos.left;
+                dropWhere.y = e.clientY - elPos.top;
+
+            });
+            addEvent(box,'mousemove',function(e){
+                if(flagMove){
+                    this.style.top = e.clientY - dropWhere.y + 'px';
+                    this.style.left = e.clientX - dropWhere.x + 'px';
+                }
+
+            });
+
+            addEvent(box,'mouseup',function(e){
+                console.log("up..................");
+                flagMove = false;
+                stopPropagationFix(e);
+            });
+        };
+
+        function $(id){
+            return document.getElementById(id);
+        }
+
+        function addEvent(el,type,fn){
+            if(el.addEventListener){
+                el.addEventListener(type,fn,false);
+            }else{
+                el.attachEvent('on' + type, function(){
+                    fn.call(el,window.event);
+                });
+            }
+        }
+        //阻止派发事件
+        function stopPropagationFix(e){
+            if(e.stopPropagation){
+                e.stopPropagation();
+            }else{
+                e.cancelBubble = true;
+            }
+        }
+        //阻止默认动作
+        function preventDefaultFix(e){
+            if(e.preventDefault){
+                e.preventDefault();
+            }else{
+                e.returnValue = false;
+            }
+        }
+
+        function getPos(el){
+            var x = el.offsetLeft , y = el.offsetTop ;
+
+            while(el = el.offsetParent){
+                x += el.offsetLeft;
+                y += el.offsetTop;
+            }
+
+
+            return {
+                left : x,
+                top : y
+            }
+        }
+
+    </script>
+</head>
+<body style="height:1000px;width:1800px;">
+<div id="box" style="width:100px;height:100px;position: absolute;border:1px blue solid;">
+
+</div>
+</body>
+</html>

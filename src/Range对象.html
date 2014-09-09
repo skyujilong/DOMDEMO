@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试Range对象</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <p>
+
+        4月13日消息，据台湾媒体报道， 32岁的孙燕姿(Sng Ee Tze)和后天将满34岁的荷兰籍印度尼西亚男友纳迪姆(Nadim Van Der Ros)交往5年，曾说过"有空就结婚"的她，果然趁着宣传期尾声，于3月31日在新加坡登记注册了！昨消息传开，她未否认，仅说会选择适当时间公布喜讯，所属"美妙音乐"则表示她个性低调，婚礼只会邀请双方亲友，也不会透露细节，但据新加坡可靠消息指出，婚宴订在5月初。
+
+    </p>
+    <button>点击获取内容</button>
+    <p>
+        获取的内容如下：
+    </p>
+    <p id="content">
+
+    </p>
+    <p>
+        字数：<span id="count"></span>
+    </p>
+<script>
+
+    var el = document.getElementsByTagName("button")[0];
+
+    var addEventHandler = (function (){
+        if(window.attachEvent){
+            return function(el,type,fn){
+                el.attachEvent('on' + type, function(){
+                    fn.call(el,window.event);
+                });
+            }
+        }else{
+            return function(el,type,fn){
+                el.addEventListener(type,fn,false);
+            }
+        }
+    })();
+
+
+    addEventHandler(el,'click',function(event){
+        var text,userSelection;
+        if(window.getSelection){
+            //现代浏览器
+            userSelection = window.getSelection();
+        }else if(document.selection){
+            //ie浏览器
+            userSelection = document.selection.createRange();
+            //userSelection.text;
+        }
+
+        if (!(text = userSelection.text)) {
+            text = userSelection;
+        }
+        document.getElementById('content').innerHTML = text;
+        document.getElementById('count').innerHTML = (text + "").length ? (text + "").length : 0;
+    });
+
+
+
+</script>
+</body>
+</html>

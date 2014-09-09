@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ie下cloneNode的问题</title>
+    <meta charset="utf-8">
+    <script>
+
+        window.onload = function () {
+
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode('first'));
+            div.appendChild(document.createTextNode('second'));
+
+
+            var cloneNode = div.cloneNode(true);
+            //ie 打印childNodes.length为1 chrome为2 ie竟然把textNode给合并了！！合并成一个了 这是不正确的
+            console.log(cloneNode.childNodes.length);
+            console.log(cloneNode.childNodes[0].nodeValue);
+
+            //解决办法，当ie cloneNODE的时候判断nodeType 当为3的时候 手动创建textNode 在append到最外层的层级中
+            //推荐用outerHTML属性来解决ie的cloneNode问题
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

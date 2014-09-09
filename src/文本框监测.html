@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文本框监测</title>
+    <meta charset="utf-8">
+    <script>
+
+        // Firefox, Google Chrome, Opera, Safari, Internet Explorer from version 9
+        function OnInput(event) {
+            console.log("The new content: " + event.target.value);
+        }
+        // Internet Explorer
+        function OnPropChanged(event) {
+            if (event.propertyName.toLowerCase() == "value") {
+                console.log("The new content: " + event.srcElement.value);
+            }
+        }
+    </script>
+</head>
+<body>
+
+Please modify the contents of the text field.
+<input type="text" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" value="Text field"/>
+
+
+</body>
+</html>
