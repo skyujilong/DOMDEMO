@@ -14,7 +14,7 @@
 
 </div>
 <script>
-
+    console.log(sessionStorage);
     function checkStorgeSuppert() {
         if (!!localStorage) {
             return true;
@@ -70,8 +70,8 @@
      * @type {{localStorage: Storage, sessionStorage: Storage, isHaveLocal: Function, localGetVal: Function, localSetVal: Function}}
      */
     var storageUtil = {
-        localStorage: window.localStorage,
-        sessionStorage: window.sessionStorage,
+        localStorage: localStorage,
+        sessionStorage: sessionStorage,
         isHaveLocal: function (key) {
             if (this.localStorage.getItem(key) === null) {
                 return false;
@@ -121,8 +121,12 @@
 
     };
 
-
-
+    addEventHandler(window,'storage',function(e){
+        console.log(e.key + "'s oldValue is" + e.oldValue);
+        console.log(e.key + "'s newValue is" + e.newValue);
+    });
+    sessionStorage['say'] = "hello";
+    sessionStorage['say'] = 'world';
 </script>
 </body>
 </html>

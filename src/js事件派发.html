@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>js事件派发</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <input type="button" value="start" onclick="clickHandler()"/>
+    <input type="button" value="派发事件" onclick="dispatchHandler()"/>
+    <select onchange="dispatchChange()">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+    <script>
+        var sum = 0;
+        function clickHandler(){
+            sum ++;
+            console.log(sum);
+        }
+
+        var dispatch = function(ele,type){
+            if(document.fireEvent){
+                ele.fireEvent('on' + type);
+            }else{
+//                var evt = new MouseEvent(type,{
+//                    canBubble:true,
+//                    cancelable:true
+//                });
+
+//                var evt = document.createEvent("HTMLEvents");
+//                evt.initEvent(type,true,true);
+
+                var evt = new CustomEvent(type,{
+                    canBubble:true,
+                    cancelable:true
+                });
+
+                ele.dispatchEvent(evt);
+
+            }
+        };
+        function dispatchHandler(){
+            dispatch(document.getElementsByTagName('input')[0],'click');
+        }
+
+        function dispatchChange(){
+            dispatch(document.getElementsByTagName('input')[0],'click');
+        }
+    </script>
+</body>
+</html>
