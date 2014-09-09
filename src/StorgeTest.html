@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试本地存储</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<input type="text" name="key" placeholder="key value"/>
+<input type="text" name="value" placeholder="result value"/>
+<input id="save" type="button" value="点击添加"/>
+
+<script>
+
+    function checkStorgeSuppert() {
+        if (!!localStorage) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function addEventHandler(el, type, fn) {
+        if (el.addEventListener) {
+            el.addEventListener(type, fn, false);
+        } else if (el.attachEvent) {
+            el.attachEvent('on' + type, function () {
+                fn.call(el, window.event);
+            });
+        } else {
+            el['on' + type] = fn;
+        }
+    }
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    var buttonHandler = {
+        saveBtnDom: null,
+        init: function () {
+            this.saveBtnDom = $('save');
+            this.initEvent();
+        },
+        initEvent: function () {
+            addEventHandler(this.saveBtnDom, 'click', this.saveHandler)
+        },
+        saveHandler: function (e) {
+            var inputs = document.getElementsByTagName('input');
+            var key = inputs[0].value;
+            var value = inputs[1].value;
+            storageUtil.sessionSetVal(key, value);
+        }
+    };
+    buttonHandler.init();
+    /**
+     * 建议将数据转化为json字符串进行保存
+     * @type {{localStorage: Storage, sessionStorage: Storage, isHaveLocal: Function, localGetVal: Function, localSetVal: Function}}
+     */
+    var storageUtil = {
+        localStorage: window.localStorage,
+        sessionStorage: window.sessionStorage,
+        isHaveLocal: function (key) {
+            if (this.localStorage.getItem(key) === null) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        localGetVal: function (key) {
+            return this.localStorage.getItem(key);
+        },
+        localSetVal: function (key, val) {
+            return this.localStorage.setItem(key, val);
+        },
+        localLen: function () {
+            return this.localStorage.length;
+        },
+        localRm: function (key) {
+            if (key) {
+                return this.localStorage.removeItem(key);
+            } else {
+                return this.localStorage.clear();
+            }
+        },
+        isHaveSession: function (key) {
+            if (this.sessionStorage.getItem(key) === null) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        sessionGetVal: function (key) {
+            return this.sessionStorage.getItem(key);
+        },
+        sessionSetVal: function (key, val) {
+            return this.sessionStorage.setItem(key, val);
+        },
+        sessionLen: function () {
+            return this.sessionStorage.length;
+        },
+        sessionRm: function (key) {
+            if (key) {
+                return this.sessionStorage.removeItem(key);
+            } else {
+                return this.sessionStorage.clear();
+            }
+        }
+
+    };
+
+
+
+</script>
+</body>
+</html>
