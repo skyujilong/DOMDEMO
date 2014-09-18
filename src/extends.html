@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>instanceof 测试</title>
+    <script type="text/javascript">
+
+        function father(){
+
+        }
+
+        father.prototype.say = function(text){
+            console.log(text);
+        };
+
+
+        function son(){
+            father.call(this);
+        }
+
+        son.prototype = new father();
+        son.prototype.constructor = son;
+
+
+        son.prototype.cry = function(){
+            console.log("cry.......................");
+        };
+
+        var s = new son();
+        var f = new father();
+
+
+        console.dir(s);
+        console.dir(f);
+
+//        console.log(s instanceof f);
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

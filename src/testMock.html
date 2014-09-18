@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试mock生成ajax数据</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/mock.js"></script>
+</head>
+<body>
+<h1>测试mockjs生成ajax测试数据</h1>
+<span id="content"></span>
+<script>
+
+    var data = Mock.mock({
+//        'list|1-10': [
+//            {
+//                'id|+2': 1
+//            }
+//        ]
+        'list|1-20':[{
+            'id|1':true
+        }]
+    });
+
+    var contentDom = document.getElementById('content');
+    contentDom.innerHTML = JSON.stringify(data,null,4);
+    console.log(data);
+
+</script>
+</body>
+</html>
