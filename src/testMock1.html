@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试mockjs拦截ajax请求并返回对应的数据</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/mock.js"></script>
+    <script>
+
+        Mock.mock(/\.do/,{
+            'status|1':[200,204,203,201,202],
+            'msg|1':['返回的结果值是正确的','返回的结果值并不正确'],
+            'array|1-10':[{
+                'flag|1':false
+            }]
+
+        });
+
+        $.ajax({
+            url:'web/test.do',
+            type:'get',
+            data:{
+                num:1
+            },
+            dataType:'json',
+            success:function(data){
+                console.log(arguments);
+                console.log(data);
+                console.log(JSON.stringify(data));
+            }
+        });
+    </script>
+</head>
+<body>
+
+<h1>测试mockjs拦截ajax请求并返回对应的数据</h1>
+<span>
+
+    通过测试得出mockjs拦截ajax请求，并不是真的向后台发送了ajax，而是直接拦截掉了请求并生成对应模版数据，之后反而塞会给ajax请求的
+    success方法内。
+
+</span>
+</body>
+</html>
