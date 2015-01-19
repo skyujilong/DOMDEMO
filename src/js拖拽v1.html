@@ -26,9 +26,10 @@
 
             Drag.prototype = {
                 dragStart:function(e){
+                    console.log(this);
                     e = e || window.event;
-                    self = this.me;//拖拽对象
-                    node = self.node;
+                    var self = this.me;//拖拽对象
+                    var node = self.node;
                     node.offset_x = e.clientX - node.offsetLeft;
                     node.offset_y = e.clientY - node.offsetTop;
                     node.onmousemove = self.drag;
@@ -36,8 +37,8 @@
                 },
                 drag:function(e){
                     e = e || window.event;
-                    self = this.me;//拖拽对象
-                    node = self.node;//拖拽元素
+                    var self = this.me;//拖拽对象
+                    var node = self.node;//拖拽元素
                     node.style.cursor = 'pointer';
                     //去拖拽选中文本
                     !+"\v1"?document.selection.empty() : window.getSelection().removeAllRanges();
@@ -54,8 +55,11 @@
             root.Drag = Drag;
         })(this);
 
+        window.onload = function(){
+            new Drag('d1');
+        }
 
-        new Drag('d1');
+
 
     </script>
 </body>

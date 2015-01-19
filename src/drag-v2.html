@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>拖拽v2测试版本</title>
+    <style>
+        #d1{height: 200px;width: 200px;background: #999966;}
+    </style>
+</head>
+<body>
+    <div id="d1">
+
+    </div>
+    <script>
+        //版本V2主要是用来解决版本V1拖动过快，导致鼠标离开元素所引起的mouseup事件无效的问题。
+        //解决的方案是，给全局document一个mouseover、mouseup事件。这样能够在鼠标脱离原有DOM上的时候mouseup事件
+        //依然生效。
+        /*(function(root){
+            var Drag = function(id){
+                this.el = document.getElementById(id);
+                this.me = this;
+                this.el.style.position = 'absolute';
+                this.el.onmousedown = dragStart;
+            };
+            Drag.prototype = {
+                dragStart:function(e){
+                    e = e || window.event;
+                    var self = me.el;
+                    var el =
+                    el.offset_x = e.clientX - self.offsetLeft;
+                }
+            }
+        })(this);*/
+        document.getElementById('d1').onclick = function(){
+            console.log(this.id);
+        };
+    </script>
+</body>
+</html>
