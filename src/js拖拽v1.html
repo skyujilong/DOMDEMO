@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JS拖拽测试</title>
+    <style>
+        .outter{width: 500px; height: 300px; margin: 100px auto; /*position: relative;*/ border:2px solid #CCCCCC;}
+        .drag-able{width: 30px; height: 30px; position: absolute;}
+        #d1{background: #000066;}
+    </style>
+</head>
+<body>
+    <div class="outter">
+        <div id="d1" class="drag-able"></div>
+    </div>
+    <script>
+        //拖拽测试组件
+        (function(root){
+
+            var Drag = function(id){
+                this.node = document.getElementById(id);
+                //保存Drag引用
+                this.node.me = this;
+                this.node.onmousedown = this.dragStart;
+            };
+
+            Drag.prototype = {
+                dragStart:function(e){
+                    e = e || window.event;
+                    self = this.me;//拖拽对象
+                    node = self.node;
+                    node.offset_x = e.clientX - node.offsetLeft;
+                    node.offset_y = e.clientY - node.offsetTop;
+                    node.onmousemove = self.drag;
+                    node.onmouseup = self.dragEnd;
+                },
+                drag:function(e){
+                    e = e || window.event;
+                    self = this.me;//拖拽对象
+                    node = self.node;//拖拽元素
+                    node.style.cursor = 'pointer';
+                    //去拖拽选中文本
+                    !+"\v1"?document.selection.empty() : window.getSelection().removeAllRanges();
+                    node.style.top = e.clientY - node.offset_y + 'px';
+                    node.style.left = e.clientX - node.offset_x + 'px';
+                },
+                dragEnd:function(e){
+                    var self = this.me;
+                    var node = self.node;
+                    node.onmousemove = null;
+                    node.onmouseup = null;
+                }
+            };
+            root.Drag = Drag;
+        })(this);
+
+
+        new Drag('d1');
+
+    </script>
+</body>
+</html>
