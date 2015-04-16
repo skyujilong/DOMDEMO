@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>固定表头</title>
+    <style>
+        td {
+            border: 2px solid #efefef;
+        }
+
+        #head1 {
+            background: #00FF99;
+            position: relative;
+            z-index: 4;
+        }
+
+        #head2 {
+            background: #00FFCC;
+        }
+
+        #view {
+            height: 200px;
+            width: 400px;
+            overflow: auto;
+            position: relative;
+        }
+        .w100{
+            width: 100px;
+            height: 100px;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+        table{
+            text-align: center;
+        }
+        .td-item{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<!-- 固定头3列 -->
+<div id="view">
+    <table>
+        <tr>
+            <td>
+                <table id="head1">
+                    <tbody>
+                        <tr>
+                            <td><div class="w100"><div class="td-item">内容1</div></div></td>
+                            <td><div class="w100"><div class="td-item">内容2</div></div></td>
+                            <td><div class="w100"><div class="td-item">内容3</div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table id="head2">
+                    <tbody>
+                        <tr>
+                            <td><div class="w100"><div class="td-item">内容4</div></div></td>
+                            <td><div class="w100"><div class="td-item">内容5</div></div></td>
+                            <td><div class="w100"><div class="td-item">内容6</div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    //头部导航滚动
+
+    window.onload = function(){
+        var viewEl = document.getElementById('view');
+        var topLeftEl = document.getElementById('head1');
+        var scollIde = null;
+        viewEl.onscroll = function(){
+            topLeftEl.style.left = viewEl.scrollLeft + 'px';
+        };
+
+
+
+    };
+
+</script>
+<!--
+    左右拖拽的时候，使得左侧的table不动（relative），控制left
+    上下拖动的时候，控制顶部的两个table不动(relative),控制top
+    层级关系是，左上角的最高，其次是右上角，之后是左下角，最后是右下角
+
+    难点，保持高度(根据)同行内，最高元素的高度设置其他行的高度
+-->
+</body>
+</html>

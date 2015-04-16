@@ -30,6 +30,7 @@
                     var el = self.el;
                     el.offset_x = e.clientX - el.offsetLeft;
                     el.offset_y = e.clientY - el.offsetTop;
+
                     document.onmousemove = function(e){
                         self.drag(e,el);
                     };

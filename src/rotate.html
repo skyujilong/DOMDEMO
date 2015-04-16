@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>测试旋转</title>
+    <style>
+        .rotate{
+            width: 200px;
+            height: 50px;
+            background: #000066;
+            transform: rotate(270deg);
+            -ms-transform:rotate(270deg);
+            color:red;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div style="position: relative;top:200px;left:200px;border:1px solid #efefef;">
+    <div id="rotate1" class="rotate">
+        测试文案
+    </div>
+</div>
+
+    <script>
+        var el = document.getElementById('rotate1');
+        var m1,m2,m3,m4, width = 200, height = 50, preDu = Math.PI / 180;
+        m1 = Math.cos(270 * preDu);
+        m2 = - Math.sin(270 * preDu);
+        m3 = Math.sin(270 * preDu);
+        m4 = Math.cos(270 * preDu);
+        el.style['margin-left'] = -(Math.cos(270 * preDu) * width + Math.sin(270 * preDu) * height - width) + 'px';
+        el.style['margin-top'] = -(Math.sin(270 * preDu) * width + Math.cos(270 * preDu) * height - height) + 'px';
+        el.style.filter = 'progid:DXImagetransform.Microsoft.Matrix(M11='+m1+',M12='+m2+',M21='+m3+',M22='+m4+',SizingMethod="auto expand")';
+        //270
+//        el.style.filter = 'progid:DXImageTransform.Microsoft.Matrix(M11=6.123233995736766e-17, M12=1, M21=-1, M22=6.123233995736766e-17, SizingMethod="auto expand");'
+//        30
+//        el.style.filter = 'progid:DXImageTransform.Microsoft.Matrix(M11=0.8660254037844384, M12=-0.5000000000000004, M21=0.5000000000000004, M22=0.8660254037844384, SizingMethod="auto expand")';
+//        el.style['margin-left'] = '72px';
+//        el.style['margin-top'] = '-78px';
+    </script>
+</body>
+</html>
