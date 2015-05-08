@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>Q对异常的处理</title>
+    <script src="js/q.js"></script>
+    <script>
+
+
+        /*var testQError = Q.delay(150).then(function(){
+         console.log('running............');
+         throw new Error('测试错误代码');
+         return Q.delay(200);
+         },function(err){
+         console.log('error1');
+         }).catch(function(e){
+         console.log('catch error...........');
+         //            throw e;
+         }).done(function(){
+
+         console.log('done............');
+         },function(){
+         console.log('error2');
+         });
+
+         Q.delay(400).then(function(){
+         console.log(Q.getUnhandledReasons());
+         });*/
+
+        function add(a,b){
+            return Q.promise(function(resolve, reject, notify){
+                resolve({a:a,b:b});
+            });
+        }
+
+
+        function sub(a,b){
+            return Q.promise(function(resolve,reject,notify){
+                resolve({a:a,b:b});
+            })
+        }
+
+
+        add(1,2).then(function(obj){
+            console.log(obj.a + obj.b);
+            return sub(obj.a,obj.b);
+        },function(e){
+            console.log(e);
+        }).then(function(opt){
+            console.log(opt);
+            throw new Error('模拟错误环境捕获');
+        }).catch(function(e){
+            console.log(e);
+        });
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
