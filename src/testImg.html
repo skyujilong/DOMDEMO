@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title>测试图片异步加载</title>
+
+</head>
+<body>
+<script>
+    //经测试，必须经过onload函数  才能确切的 知道 这个图片的大小，否则是拿不到图片大小的
+    var img = new Image();
+    img.onload = function(){
+        console.log(this.width);
+        console.log(this.height);
+    };
+    img.src = 'http://d.hiphotos.baidu.com/image/pic/item/fd039245d688d43f24fd8ef37f1ed21b0ef43b5e.jpg';
+    console.log(img.width);
+    console.log(img.height);
+
+    document.documentElement.appendChild(img);
+</script>
+</body>
+</html>

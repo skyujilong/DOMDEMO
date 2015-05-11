@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <style>
+        .box{
+            background: red;
+            height: 200px;
+            width: 200px;
+        }
+        .box:empty{
+            background: lime;
+        }
+    </style>
+</head>
+<body>
+<!--兼容性到ie9-->
+    <div class="box"><!--I will be lime--></div>
+    <div class="box">
+        I will be red.
+    </div>
+    <div class="box">
+        <!--I will be red because of the whitespace around this comment-->
+    </div>
+</body>
+</html>

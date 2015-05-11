@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>对于选择器权重的测试</title>
+    <style>
+        .d1 .d2 .d3 .d4 .d5 .d6 .d7 .d8 .d9 .d10 .d11 .d12{
+            height: 200px;
+            width: 200px;
+            border: 1px solid red;
+            color : red;
+        }
+        #test{
+            color: blue;
+            height: 100px;
+            width: 100px;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+<!--经测试，ID选择器的权重，不是类选择叠加能够超过的，类似于进制的关系 十进制的数字一定大于个位数上的
+    而CSS选择器每种选择器对应不同的进制数字，不同的是 数学的进制 是可以进的  而CSS的 则不可以
+-->
+    <div class="d1">
+        <div class="d2">
+            <div class="d3">
+                <div class="d4">
+                    <div class="d5">
+                        <div class="d6">
+                            <div class="d7">
+                                <div class="d8">
+                                    <div class="d9">
+                                        <div class="d10">
+                                            <div class="d11">
+                                                <div id="test" class="d12">
+                                                    test
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

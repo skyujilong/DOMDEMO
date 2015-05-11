@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title>清除浮动研究</title>
+    <style>
+        .wrapper{
+            width: 1200px;
+            margin: 20px auto;
+            border:1px solid lime;
+        }
+        /*
+        子代 选择器  与后代选择器的区别
+        在于子代选择器 只选择直系子代 ，而后代选择器，选择的是所有的子代。
+        */
+        .wrapper>.box{
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+        .fl{
+            float: left;
+        }
+        .fr{
+            float: right;
+        }
+        .clear{
+            clear:both;
+        }
+    </style>
+</head>
+<body>
+    <!--不能清除浮动  最下方的-->
+    <!--<div class="wrapper">
+        <div class="fl box"></div>
+    </div>-->
+    <div class="fl" style="width: 200px;height: 300px;border:1px solid darkgray;"></div>
+    <!--<div class="clear"></div>-->
+    <div class="wrapper">
+        <div class="fl box">
+            <div class="box"></div>
+        </div>
+        <div class="fr box"></div>
+        <div></div>
+        <!--从clear:both开始 才是从新换行了-->
+        <div class="clear"></div>
+        <p>
+            111111111
+        </p>
+    </div>
+
+    <div class="wrapper">
+        <div class="fl box"></div>
+        <div class="fl box"></div>
+        <div class="fr clear box"></div>
+    </div>
+</body>
+</html>
