@@ -3,7 +3,8 @@
 <head lang="zh">
     <meta charset="UTF-8">
     <title>Q对异常的处理</title>
-    <script src="js/q.js"></script>
+    <!--<script src="js/q.js"></script>-->
+    <script src="http://cdn.bootcss.com/q.js/1.3.0/q.js"></script>
     <script>
 
 
@@ -37,24 +38,23 @@
         function sub(a,b){
             return Q.promise(function(resolve,reject,notify){
                 resolve({a:a,b:b});
-            })
+            });
         }
 
 
-        add(1,2).then(function(obj){
+        var end = add(1,2).then(function(obj){
             console.log(obj.a + obj.b);
             return sub(obj.a,obj.b);
-        },function(e){
-            console.log(e);
         }).then(function(opt){
-            console.log(opt);
-            throw new Error('模拟错误环境捕获');
-        }).catch(function(e){
+//            console.log(opt);
+           throw new Error('模拟错误环境捕获');
+        }).fail(function(e){
             console.log(e);
         });
 
-
-
+        console.log('---------------------');
+        console.log(console.log(end));
+        console.log('---------------------');
 
 
     </script>

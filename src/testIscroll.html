@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>测试滑动组件</title>
+    <style>
+        ul{margin: 0;padding: 0;}
+        li{margin: 0;padding: 0;list-style: none;}
+        .wrapper {position: relative;overflow: hidden;height: 302px;}
+        .wrapper li{width: 198px;height: 300px;float: left;border: 1px solid #000066;}
+        #move{position: absolute;width: 2300px;height: 302px;}
+    </style>
+    <script type="text/javascript" src="http://cdn.bootcss.com/zepto/1.1.6/zepto.js"></script>
+    <script type="text/javascript" src="js/iscroll.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var myScroll = new IScroll('#wrapper', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper" class="wrapper">
+        <ul id="move">
+            <li>
+                1
+            </li>
+            <li>
+                2
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

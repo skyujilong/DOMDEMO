@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title>测试类似微博数字计数</title>
+    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script>
+        //不能满足  鼠标复制东西 ， 需要用 oninput (标准) & onpropertychange (ie)
+        $(document).ready(function(){
+            $("#test").keyup(function(){
+                console.log(this.value);
+            });
+            document.getElementById('test').onpropertychange = function(){
+                console.log();
+            }
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="test">
+</body>
+</html>

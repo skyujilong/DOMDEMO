@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>测试mouserover</title>
+    <style>
+        .d1{width: 200px;height: 200px;background: red;}
+        .menu{width:100px;height: 100px;position:absolute;top:0;left:200px;background: blue;display: none;}
+    </style>
+    <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('.d1').mouseenter(function(e){
+                console.log(e.relatedTarget);
+                $('.menu').show();
+            }).mouseleave(function(e){
+                console.log(e.relatedTarget);
+                $('.menu').hide();
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div class="d1">
+
+    </div>
+    <div class="menu">
+
+    </div>
+</body>
+</html>
