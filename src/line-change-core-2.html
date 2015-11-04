@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>CSS3线性渐变</title>
+    <style>
+        body{
+            background: white;
+        }
+        .wrapper{
+            width: 400px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .content{
+            height: 210px;
+            background: white;
+            overflow: hidden;
+        }
+        .mask{
+            position: absolute;
+            width: 400px;
+            height: 24px;
+            margin: 0 auto;
+            bottom: 0;
+            background: url(img/icon.png) repeat-x bottom;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+        与加色模式对应的是适合印刷的CMYK色彩模式，也称减色色彩模式。CMYK代表印刷上用的四种颜色，C代表青色（Cyan），M代表洋红色（Magenta），Y代表黄色（Yellow），K代表黑色（Black）。因为在实际引用中，青色、洋红色和黄色很难叠加形成真正的黑色，最多不过是褐色而已。因此才引入了K——黑色。黑色的作用是强化暗调，加深暗部色彩。CMYK模式是最佳的打印模式，因RGB模式尽管色彩多，但不能完全打印出来。用CMYK模式编辑虽然能够避免色彩的损失，但运算速度很慢。所以现实中的设备，如扫描仪和显示器，都是在RGB模式编辑，再转换为CMYK模式，其中加入了一些必要的色彩校正技术手段，最终打印/输出。
+        在前端开发中，我们不只用到RGB比较多，而且RGBA也会常常用到。实际上，RGBA是在RGB的基础上增加了控制alpha透明度的参数A。其中，R、G、B三个参数的整数取值范围为：0 ~ 255，百分数值的取值范围为：0.0% ~ 100.0%。超出范围的数值将被截至其最接近的取值极限。不过，并非所有浏览器都支持使用百分数值。A参数，取值在0~1之间，不可为负值。
+        直接了当的说，RGBa模式是一种包含透明效果的颜色设置方法，语法如下：
+        </div>
+        <div class="mask">
+
+        </div>
+    </div>
+
+</body>
+</html>

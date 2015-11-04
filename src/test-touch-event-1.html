@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <title>touch事件测试</title>
+    <style>
+        .touch-ele{
+            height: 400px;
+            width: 400px;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="touch-ele">
+
+    </div>
+    <script>
+        var el = document.querySelector('.touch-ele');
+        el.addEventListener('touchstart',function(e){
+            console.log('TOUCH START');
+            console.log(e);
+        },false);
+        el.addEventListener('touchmove',function(e){
+            console.log('TOUCH MOVE');
+            console.log(e);
+        });
+        el.addEventListener('touchend',function(e){
+            console.log('TOUCH END');
+            console.log(e);
+        });
+        el.addEventListener('touchcancel',function(e){
+            console.log('TOUCH CANCEL');
+            console.log(e);
+        });
+    </script>
+</body>
+</html>
