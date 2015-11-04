@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <title>测试zepto左右滑动效果</title>
+    <script src="js/zepto.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.item').swipeLeft(function(){
+                $(this).animate({left:'-40px'});
+            }).swipeRight(function(){
+                $(this).animate({left:'0'});
+            });
+        });
+    </script>
+    <style>
+        ul,li{list-style: none;margin: 0;padding: 0;}
+        .list{
+            width: 320px;
+            margin: 0 auto;
+        }
+        .list li{
+            width: 100%;
+            height: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+        .list .item{
+            position: absolute;
+            left: 0;
+            width: 360px;
+            overflow: auto;
+        }
+        .list .left-content{
+            height: 40px;
+            line-height: 40px;
+            width: 320px;
+            float: left;
+        }
+        .list .right-control{
+            height: 40px;
+            line-height: 40px;
+            width: 40px;
+            float: left;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>
+            <div class="item">
+                <div class="left-content">
+                    文本区域
+                </div>
+                <div class="right-control">
+                    移除
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="item">
+                <div class="left-content">
+                    文本区域
+                </div>
+                <div class="right-control">
+                    移除
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="item">
+                <div class="left-content">
+                    文本区域
+                </div>
+                <div class="right-control">
+                    移除
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="item">
+                <div class="left-content">
+                    文本区域
+                </div>
+                <div class="right-control">
+                    移除
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="item">
+                <div class="left-content">
+                    文本区域
+                </div>
+                <div class="right-control">
+                    移除
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="item">
+                <div class="left-content">
+                    文本区域
+                </div>
+                <div class="right-control">
+                    移除
+                </div>
+            </div>
+        </li>
+    </ul>
+</body>
+</html>
