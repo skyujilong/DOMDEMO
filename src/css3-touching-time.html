@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>按住事件测试</title>
+    <style>
+        .item{
+            width: 300px;
+            height: 300px;
+            border: 1px solid #CCCCCC;
+            position: relative;
+            overflow: hidden;
+        }
+        .circle-mask{
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top:130px;
+            left: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #efefef;
+            display: none;
+        }
+        .move-bigger{
+            display: block;
+            animation-name: to-big-circle;
+            animation-duration: 500ms;
+            animation-fill-mode: forwards;/*规定动画停在最后执行的一帧上，如果没有这个forwards的话，动画执行完与最早的时候是一样的*/
+        }
+        @keyframes to-big-circle {
+            from{
+                transform:scale(1);
+            }
+            to {
+                transform:scale(11);
+            }
+        }
+    </style>
+    <script>
+
+        var main = {
+            init:function(){
+                var timer;
+                var itemEl = document.querySelector('.item');
+                itemEl.addEventListener('touchstart',function(e){
+                    e.preventDefault();
+                    console.log('touchstart.............');
+                    if(timer){
+                        clearTimeout(timer);
+                    }
+                    timer = setTimeout(function(){
+                        itemEl.querySelector('.circle-mask').className = itemEl.querySelector('.circle-mask').className + ' move-bigger';
+                    },750);
+                },false);
+                itemEl.addEventListener('click',function(){
+                    console.log('click..............');
+                });
+                itemEl.addEventListener('touchend',function(e){
+                    console.log('touchend...............');
+                    clearTimeout(timer);
+                },false);
+                document.querySelector('.circle-mask').addEventListener('touchend',function(e){
+                    this.className = 'circle-mask';
+                },false);
+            }
+        };
+
+        //注：tap这样的事件，其实都是通过touch相关API进行模拟出来的，包括long tap也是同样的。
+
+        document.addEventListener('DOMContentLoaded',function(){
+            console.log('domReady');
+            console.log(document.querySelectorAll('.item'));
+            console.log(document.querySelector('.item'));
+            main.init();
+        },false);
+
+    </script>
+</head>
+<body>
+    <div class="item">
+        <div class="circle-mask"></div>
+    </div>
+</body>
+</html>
