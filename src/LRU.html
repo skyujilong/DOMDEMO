@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>lru算法实现</title>
+    <script>
+
+        //cacheList双向链表 cacheMap key-val的集合
+        var cacheList, cacheMap = {}, cacheSize = 3, currentSize = 0;
+
+        function cacheItem (key, pre, next){
+            this.key = key;
+            this.pre = pre || null;
+            this.next = next || null;
+        }
+
+        var cacheListHandler = {
+            set: function(key, val){
+                var _tmp,_tmpWhile,_i = 0;
+                if(!cacheList){
+                    var item = new cacheItem(key);
+                    cacheMap[key] = val;
+                    cacheList = item;
+                    currentSize ++ ;
+                }else{
+                    //TODO 首先确定是否命中，如果命中将命中元素提到链表的表头。
+                    //TODO 如果没有命中将新的数据对象放入到表的表头，同时检查是否超出最大长度，如果超出将最后一个元素释放掉
+                    if(this.isHit(key)){
+                        //命中 数据内容进行更换
+                        cacheMap[key] = val;
+                        _tmpWhile = cacheList;
+                        _tmp = cacheList;
+                        while(true){
+
+                            if(_tmpWhile.key == key){
+                                break;
+                            }
+                            _i++;
+                            _tmpWhile = _tmpWhile.next;
+                        }
+                        if(_i > 0){
+                            _tmpWhile.pre.next = _tmpWhile.next;
+                            _tmpWhile.next.pre = _tmpWhile.pre;
+                            cacheList = _tmpWhile;
+                            cacheList.pre = null;
+                            cacheList.next = _tmp;
+                            _tmp.pre = cacheList;
+                        }
+                    }else{
+                        //未命中，数据进行添加到表头 同时添加更新cacheMap中的key-val
+                        cacheMap[key] = val;
+                        _tmp = cacheList;
+                        cacheList = new cacheItem(key, null, _tmp);
+                        _tmp.pre = cacheList;
+                        currentSize++;
+                        if(currentSize > cacheSize){
+                            _tmpWhile = cacheList;
+                            while(true){
+                                if(!_tmpWhile.next){
+                                    break;
+                                }
+                                _tmpWhile = _tmpWhile.next;
+                            }
+                            _tmpWhile.pre.next = null;
+                            delete cacheMap[_tmpWhile.key];
+                            currentSize --;
+                        }
+
+                    }
+                }
+            },
+            get: function(key){
+
+            },
+            isHit: function(key){
+                var isHit = false;
+                for(var _key in cacheMap){
+                    if(_key === key){
+                        isHit = true;
+                        break;
+                    }
+                }
+                return isHit;
+            }
+        };
+
+
+        var lruCache = {
+
+            set : function(key,val){
+
+            },
+
+            get : function(key){
+
+            }
+
+        };
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
