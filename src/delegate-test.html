@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>事件委派测试（标准浏览器）</title>
+
+</head>
+<body>
+
+<div id="test">
+    <ul>
+        <li><a href="javascript:void(0)" class="click xxx">click me!</a></li>
+        <li><a href="javascript:void(0)" class="xxx">click no hundler!!</a></li>
+    </ul>
+</div>
+
+<script>
+
+    document.getElementById('test').addEventListener('click',function(e){
+        var classList = e.target.className.match(/[^\s]+/g), returnFlag = true;
+        /*console.log(e.target);
+        console.log(e.target.className);
+        console.log(e.target.className.match(/[^\s]+/g));
+        console.log(e.target.className.match(/[a-zA-Z]*//*g));
+        console.log(e.target.classList);*/
+        for(var i = 0, eclass; eclass = classList[i++]; ){
+            if(eclass === 'click'){
+                returnFlag = false;
+            }
+        }
+
+        if(returnFlag){
+            return;
+        }
+
+        console.log('run you program......................');
+    },false);
+</script>
+</body>
+</html>
