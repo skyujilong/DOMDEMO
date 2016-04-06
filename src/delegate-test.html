@@ -15,7 +15,7 @@
 </div>
 
 <script>
-
+    /*代理的关键在于 event.srcElement与event.target 前者是ie 后者是标准浏览器， 之后判断 className或者其他的 tagName之类的*/
     document.getElementById('test').addEventListener('click',function(e){
         var classList = e.target.className.match(/[^\s]+/g), returnFlag = true;
         /*console.log(e.target);
