@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>闭包问题研究</title>
+    <script>
+        function fun(n,o) {
+            console.log(o);
+            return {
+                fun:function(m){
+                    return fun(m,n);
+                }
+            };
+        }
+
+        var a = fun(0);//undefined
+        //之后 a是对象 含有fun的对象
+        a.fun(1);//m = 1 n = 0
+        a.fun(2);//m = 2 n = 0
+        a.fun(3);//m = 3 n = 0
+        //我的结论是 undefined 0 0 0
+
+        var b = fun(0)//undefined fun(0)->返回{fun:function(){}}
+                .fun(1)//m = 1 n = 0 输出 0 返回新的{fun:function(){}}对象
+                .fun(2)//m = 2 n = 1 输出 1 返回新的{fun:function(){}}对象
+                .fun(3);//m = 3 n = 2 输出 2 返回新的{fun:function(){}}对象
+        var c = fun(0)// undefined
+                .fun(1);//m = 1 n = 0 输出 0 返回新的{{fun:function(){}}对象}
+        c.fun(2);//m = 2 n = 1 输出 1 返回新的{{fun:function(){}}对象}
+
+        c.fun(3);//m = 3 n = 1 输出 1 返回新的{{fun:function(){}}对象}
+    </script>
+</head>
+<body>
+    <a href="http://www.cnblogs.com/xxcanghai/p/4991870.html">相关文章</a>
+</body>
+</html>
