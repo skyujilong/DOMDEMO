@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>函数节流练习——动画的优化方式</title>
+</head>
+<body>
+
+
+<script>
+    //函数的节流用于解决mousemove拖拽与resize方面的  对dom有大量的连续操作导致的性能低下的问题
+    //新的 规范上面有 requestAnimationFrame API支持节流（方式与屏幕的刷新振是同步的）
+
+    //节流的核心思想就是减少单位时间上的触发DOM操作的次数 在频繁请求中 取消上次的定时器 执行当前的定时器
+    function throttle(cb,content){
+        var timeOutId = null;
+        (function(){
+            clearTimeout(timeOutId);
+            timeOutId = setTimeout(function(){
+                console.log(timeOutId);
+                cb.call(content||null);
+            },1000);
+        })();
+    }
+
+   /* var throttle = function(fn, delay){
+        delay = delay ? delay : 2000;
+        var timer = null;
+        return function(){
+            var context = this, args = arguments;
+            console.log(timer);
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                fn.apply(context, args);
+            }, delay);
+        };
+    };*/
+    /*function throttle(method, context) {
+        clearTimeout(method.tId);
+        method.tId = setTimeout(function(){
+            method.call(context);
+        }, 100);
+    }*/
+
+    var resizeCount = 0, throttleCount = 0;
+    window.onresize = function(){
+        resizeCount ++;
+        throttle(function(){
+            console.log('running');
+            throttleCount ++;
+            /*执行大量的延时计算操作*/
+        });
+    };
+    function getCount(){
+        console.log('resizeCount:%d',resizeCount);
+        console.log('throttleCount:%d',throttleCount);
+    }
+
+</script>
+</body>
+</html>
