@@ -44,11 +44,11 @@
             }
             var fn = this;
 
-            //如何获取this的参数？
+            //如何获取this的参数？ 保持返回值！！
             return function(){
                 console.log(this);
                 //这里获取arguments
-                fn.apply(obj || this,arguments);
+                return fn.apply(obj || this,arguments);
             }
         };
 */
@@ -66,6 +66,7 @@
 
         (function (b) {
             //调用bind的核心需要 同时能够调用obj的prototype上面的函数与属性
+            //还有就是函数的返回值需要确保。
             console.log(this.a);
             console.log(this.b);
             console.log(b);
