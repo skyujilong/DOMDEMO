@@ -5,35 +5,58 @@
     <title></title>
     <script>
         /*
-        * bind的核心是bind之后返回的是一个function
-        * */
+         * bind的核心是bind之后返回的是一个function
+         * mdn给出的答案
+         * */
         Function.prototype.bind = function (oThis) {
             if (typeof this !== "function") {
                 // closest thing possible to the ECMAScript 5
                 // internal IsCallable function
                 throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
             }
-            var aArgs = Array.prototype.slice.call(arguments, 1),
-                    fToBind = this,//要调用的function
-                    fNOP = function () {},
-                    fBound = function () {
-                        console.log();
-                        return fToBind.apply(this instanceof fNOP
-                                        ? this
-                                        : oThis || this,
-                                aArgs.concat(Array.prototype.slice.call(arguments)));
-                    };
+            var aArgs = Array.prototype.slice.call(arguments, 1);
+
+            var fToBind = this;//要调用的function
+
+            var fNOP = function () {
+            };
+
+            var fBound = function () {
+                return fToBind.apply(this instanceof fNOP
+                                ? this
+                                : oThis || this,
+                        aArgs.concat(Array.prototype.slice.call(arguments)));
+            };
 
             fNOP.prototype = this.prototype;
+
             fBound.prototype = new fNOP();
 
             return fBound;
         };
 
-        function A(a){
+        /*//我的实现方式
+        Function.prototype.bind = function(obj){
+            //obj是传递过来的ctx环境
+            if(typeof this !== 'function'){
+                //防止采用call的方式调用bind
+                throw new Error();
+            }
+            var fn = this;
+
+            //如何获取this的参数？
+            return function(){
+                console.log(this);
+                //这里获取arguments
+                fn.apply(obj || this,arguments);
+            }
+        };
+*/
+
+        function A(a) {
             this.a = a;
         }
-        A.prototype.say = function(){
+        A.prototype.say = function () {
             console.log('hello world');
         };
 
@@ -41,12 +64,15 @@
         obj.b = 3;
 
 
-        (function(b){
+        (function (b) {
+            //调用bind的核心需要 同时能够调用obj的prototype上面的函数与属性
             console.log(this.a);
             console.log(this.b);
             console.log(b);
             console.log(this.say);
         }).bind(obj)(10);
+
+
 
     </script>
 </head>
