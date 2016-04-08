@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>合并排序</title>
+    <script>
+        //归并排序 核心算法 是两个有序数组， 申请数组长度是两个数组长度的和 之后入展进行比对
+        var list1 = [1, 22, 42, 51, 60, 70];
+        var list2 = [1, 2, 40, 44, 80];
+        function mergeSort(list1, list2) {
+            var list = [];
+            var i = 0, j = 0;
+            while(true){
+                if(list1[i] <= list2[j]){
+                    list.push(list1[i]);
+                    i++;
+                }
+                if(list1[i] > list2[j]){
+                    list.push(list2[j]);
+                    j++;
+                }
+                if(i>=list1.length){
+                    list.concat(list2.slice(j,list2.length));
+                    break;
+                }
+                if(j>=list2.length){
+                    list.concat(list1.slice(i,list1.length));
+                    break;
+                }
+            }
+            return list;
+        }
+        console.log(mergeSort(list1,list2));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
