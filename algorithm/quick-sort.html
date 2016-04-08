@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+    <script>
+        var list = [20,19,40,1,33,55,100,2,1,0];
+        //思路，选中中间一个点 之后让两部分比对 左边的永远比右边的部分小 以此来进行递归操作(可以选中一个值进行)
+        function quickSort(list){
+            if(list.length <= 1){
+                return Array.prototype.slice.call(list,0);
+            }
+            var middleValue = list[0];
+            var leftList = [], rightList = [];
+            for(var i = 1; i<list.length; i++){
+                if(middleValue > list[i]){
+                    leftList.push(list[i]);
+                }else{
+                    rightList.push(list[i]);
+                }
+            }
+            return quickSort(leftList).concat([middleValue].concat(quickSort(rightList)));
+        }
+        console.log(quickSort(list));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
