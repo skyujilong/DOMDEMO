@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>冒泡排序</title>
+    <script>
+        var list = [20, 19, 40, 1, 33, 55, 100, 2, 1, 0];
+        function bubbleSort(list) {
+            var tmp;
+            for (var i = 0; i < list.length; i++) {
+                //因为 每次排完一次顺序就会确定最顶端的元素是最小的 所以比较次数是list.length - i - 1 次
+                for(var j = 0; j < list.length - i - 1; j++){
+                    if(list[j] > list[j+1]){
+                        tmp = list[j+1];
+                        list[j+1] = list[j];
+                        list[j] = tmp;
+                    }
+                }
+            }
+        }
+        bubbleSort(list);
+        console.log(list);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
