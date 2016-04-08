@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选择排序</title>
+    <script>
+        var list = [20,19,40,1,33,55,100,2,1,0];
+        function selectSort(list) {
+            for (var i = 0; i < list.length; i++) {
+                for(var j = i; j < list.length; j ++){
+                    var tmp;
+                    if(list[i] > list[j]){
+                        tmp = list[i];
+                        list[i] = list[j];
+                        list[j] = tmp;
+                    }
+                }
+            }
+        }
+        selectSort(list);
+        console.log(list);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
