@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>prototype与new运算符的测试</title>
+    <script>
+        function Temp(){};
+
+        Temp.prototype = {
+            say: function(){
+                console.log(this.name);
+            },
+            name:'yjl'
+        };
+        //new 操作符
+        // 1 创建一个对象 这个对象继承自 temp的prototype
+        // 2 执行构造函数内的方法 同时当前的运行环境修改为当前的对象
+        // 3 如果有return 看return的类型 如果是Obj 则返回这个obj对象 否则其他视为返回 1的结果。
+        var test = new Temp();
+
+        test.say();
+
+        Temp.prototype.name='temp';
+
+        test.say();
+
+        Temp.prototype = null;
+
+        test.name = 'tester';
+
+        test.say();
+        //疑问 temp的prototype的值去哪里了？
+        console.log(Temp.prototype);
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
