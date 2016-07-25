@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>倒计时</title>
+</head>
+<body>
+<div id="getting-started"></div>
+<script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#getting-started').countdown('2017/01/01', function(event) {
+            $(this).html(event.strftime('%w weeks %d days %H:%M:%S'));
+        });
+    });
+</script>
+</body>
+</html>
