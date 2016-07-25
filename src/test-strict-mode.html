@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>测试严格模式</title>
+	<!-- <script type="text/javascript">
+			//Uncaught ReferenceError: a is not defined
+			"use strict";
+			a = 1;
+			console.log(a);
+		</script> -->
+	<!-- <script type="text/javascript">
+		// Uncaught SyntaxError: Strict mode code may not include a with statement
+		'use strict';
+		var o = {};
+		//在严格模式下禁止使用with
+		with(o) {
+
+		}
+	</script> -->
+	<!-- <script type="text/javascript">
+		'use strict';
+		function f(){
+			this.a = 1;//严格模式下是报错的，因为this是undefined的，除非你是new管关键字
+			return !this;
+		}
+		var test = new f();
+		console.log(test.a);
+		console.log(f());//严格模式下返回true;非严格模式返回false;
+	</script> -->
+	<script type="text/javascript">
+		"use strict";　　　　
+		function f1() {　　　　
+			f1.caller; // 报错
+			f1.arguments; // 报错
+		}　　
+		f1();
+	</script>
+</head>
+
+<body>
+	<a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html">参考文档——Javascript 严格模式详解</a>
+</body>
+
+</html>
