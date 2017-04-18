@@ -51,17 +51,17 @@ var Handle = function() {
                         //TODO 添加一个loading的转圈状态
                         //点击关注
                         if (navigator.userAgent.match(/Android/gi)) {
-                            reader_event.addAttention();
+                            reader_event.attention(1);
                         } else if (navigator.userAgent.match(/iPhone/gi)) {
-                            document.location.href = 'sinablog://addAttention';
+                            document.location.href = 'sinablog://attention/1';
                         }
 
                     } else if ($(this).data('att') == "1") {
                         //点击取消关注
                         if (navigator.userAgent.match(/Android/gi)) {
-                            reader_event.delAttention();
+                            reader_event.attention(0);
                         } else if (navigator.userAgent.match(/iPhone/gi)) {
-                            document.location.href = 'sinablog://delAttention';
+                            document.location.href = 'sinablog://attention/0';
                         }
                     }
 
@@ -243,9 +243,9 @@ function report() {
 function clickTopic(topicId){
     //TODO 需要跳转函数 以及参数的传递的方式
     if (navigator.userAgent.match(/Android/gi)) {
-        reader_event.jump2Report();
+        reader_event.jump2Topic(topicId);
     } else if (navigator.userAgent.match(/iPhone/gi)) {
-        document.location.href = 'sinablog://report';
+        document.location.href = 'sinablog://topic/' + topicId;
     }
 }
 
