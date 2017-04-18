@@ -95,8 +95,8 @@ var Handle = function() {
                 } else {
                     var adjust_obj = JSON.parse(adjust);
                     if (i == 0) {
-                        //TODO 头部更换
-                        Html_string = Html_string + ("<div id=\"ab_module_poster\" " + (adjust_obj.postersrc ? 'class="head_poster"' : 'class="head_poster head_noposter"') + ">" + (adjust_obj.postersrc ? "<div class=\"imgCover\"></div><img id=\"ab_poster_bg\" class=\"poster_bg\" src= " + adjust_obj.postersrc + " >" : "<img src=\"\" id=\"ab_poster_bg\"  class=\"poster_bg\"/>") + "<div class=\"auther_info\"><img id=\"ab_poster_auther_head\" class=\"auther_avtr\" src=" + info.head_src + "><div id=\"ab_poster_auther_name\" class=\"auther_name\">" + info.name + "</div>" + isShowConcernBox(info.is_attentioned) + "</div><div id=\"ab_poster_title\" class=\"poster_title\">" + info.title + "</div></div>" + (adjust_obj.postersrc ? "" : "<div class=\"gray_line\"></div>") + "<div class=\"articl_content\"><div class=\"pblsh_tm\"><span class=\"lbl_tm\" id=\"publish_date\">" + info.time + "</span><span class=\"lbl_read\" id=\"read_num\"><i class=\"ico ico_read\"></i>" + info.read_count + "</span><span class=\"lib_ctgry\" id=\"class_name\">" + (info.categary ? '<i class="ico ico_label"></i>' + info.categary : '') + "</span></div>");
+                        //头部更换
+                        Html_string = Html_string + ("<div id=\"ab_module_poster\" " + (adjust_obj.postersrc ? 'class="head_poster"' : 'class="head_poster head_noposter"') + ">" + (adjust_obj.postersrc ? "<div class=\"imgCover\"></div><img id=\"ab_poster_bg\" class=\"poster_bg\" src= " + adjust_obj.postersrc + " >" : "<img src=\"\" id=\"ab_poster_bg\"  class=\"poster_bg\"/>") + "<div class=\"auther_info\"><img id=\"ab_poster_auther_head\" class=\"auther_avtr\" src=" + info.head_src + "><div id=\"ab_poster_auther_name\" class=\"auther_name\">" + info.name + "</div>" + isShowConcernBox(info.is_attentioned) + "</div><div id=\"ab_poster_title\" class=\"poster_title\">" + info.title + "</div></div>" + (adjust_obj.postersrc ? "" : "<div class=\"gray_line\"></div>") + "<div class=\"articl_content\"><div class=\"pblsh_tm\"><span class=\"lbl_tm\" id=\"publish_date\">" + info.time + "</span><span class=\"lbl_read\" id=\"read_num\"><i class=\"ico ico_read\"></i>" + info.read_count + "</span><span class=\"lib_ctgry\" id=\"class_name\">" + (info.categary ? '<i class="ico ico_label1"></i>' + info.categary : '') + "</span></div>");
                     } else if (adjust_obj.src) {
                         var img_location = adjust_obj.location.split('|')[2],
                             img_width = getSize(adjust_obj.iw),
@@ -187,7 +187,6 @@ var Handle = function() {
                     topicDomString += ['<a href="javascript:void(0);" onclick="clickTopic(',item.topic_ic,')">',item.topic_name,'</a>'].join('');
                 }
             }
-            console.log(topicDomString);
         },
         init = function(info_arg) {
             outerhtml = info_arg.article_body.replace(/&quot;/g, '"').replace(/\\n/gm, '<br>').replace(/\\/g, '');
