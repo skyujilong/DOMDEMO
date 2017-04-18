@@ -13,7 +13,7 @@
   -->
 
     <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-    <!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script id="ab_js_media_element" src=""></script>
     <link rel="stylesheet" id="ab_css_media_element" href="" />
     <script id="ab_js" src="module.js"></script>
@@ -28,9 +28,9 @@
             <div id="cont-replace"></div>
         </div>
         <!-- 入选主题 -->
-        <div class="artcl_subject">
+        <div id="artcl_subject" class="artcl_subject" style="display:none;">
             <h4 class="sbjct_tit"><i class="ico_level ico_subject"></i>入选主题</h4>
-            <div class="artcl_sbjct_list"><a href="#">人工智能之发展</a><a href="#">人工智能</a><a href="#">人工智能之</a><a href="#">人工智能之发展</a><a href="#">人工智能</a><a href="#">人工智能之</a><a href="#">人工智能之发展</a><a href="#">人工智能</a><a href="#">人工智能之</a><a href="#">人工智能之发展</a><a href="#">人工智能</a><a href="#">人工智能之</a></div>
+            <div class="artcl_sbjct_list"></div>
         </div>
         <!-- 入选主题结束 -->
         <!--禁止转载和评论，举报-->
@@ -50,7 +50,7 @@
         var jsonObj = {
             "is_forbidden_repost": "1",
             "categary": "",
-            "vip": "0",
+            "vip": "1",
             "topic_list": [ //主题列表
                 {
                     "topic_name": "主题1",
@@ -59,16 +59,20 @@
                 {
                     "topic_name": "主题2",
                     "topic_ic": "1232"
+                },
+                {
+                    "topic_name": "主题3",
+                    "topic_ic": "1234"
                 }
             ],
             "time": "2016-08-12 13:42:34",
             "title": "2016年08月12日",
             "article_body": "<div ABTYPE=\"abarticle\"><img ABTYPE=\"abhead\" ABDATA=\"{ &quot;poster_title&quot; : &quot;2016年08月12日&quot;, &quot;auther_name&quot; : &quot;苏打似的&quot;, &quot;postersrc&quot; : &quot;&quot;}\" SRC=\"\"  ALT=\"2016年08月12日\" />\n<div ABTYPE=\"abtext\">\n<p>而柔软</P>\n<p>\n的确如此？我们要学会用一个小男孩的父亲的背影……的确如此！的确如此！的确如此！的确如此！的确如此！的确如此！的确如此、我们的确如此、我们的确如此！的确如此！的确如此、我们的确如此、我们要不要那么早的就行</P>\n<p>我们的话题？的确如此！的确如此！的确如此！的确如此、我们要</P>\n</DIV>\n<img ABTYPE=\"abimg\" ABDATA=\"{ &quot;src&quot; : &quot;http:\\/\\/s8.sinaimg.cn\\/middle\\/001TOYPdzy7460Gak3ae4&quot;, &quot;ih&quot; : &quot;250&quot;, &quot;location&quot; : &quot;0.0|0.0|&quot;, &quot;descrt&quot; : &quot;Yuu&quot;, &quot;iw&quot; : &quot;250&quot;}\" SRC=\"http://s8.sinaimg.cn/middle/001TOYPdzy7460Gak3ae4\"  ALT=\"2016年08月12日\"  TITLE=\"2016年08月12日\" /></DIV>",
             "is_forbidden_comment": "1",
-            "is_attentioned": "2", //0 未关注 1 已关注 其他状态不显示是否关注
+            "is_attentioned": "0", //0 未关注 1 已关注 其他状态不显示是否关注
             "read_count": "27",
             "head_src": "http: //portrait8.sinaimg.cn/1740981527/blog/180/47311478595259",
-            "is_show_report": "0",
+            "is_show_report": "1",
             "name": "苏打似的",
             "font_size": "1"
         };
