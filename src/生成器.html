@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>generator</title>
+    <script type="text/javascript">
+        "use strict";
+        var count = 0;
+        function delay(time){
+            return function(fn){
+                setTimeout(function(){
+                    console.log(count ++);
+                    fn();
+                },time);
+            }
+        }
+        // delay(3000)(function(){
+        //     console.log('delay');
+        // });
+
+        function co(g){
+            var gen = g();
+            return function(cb){
+                next();
+                function next(){
+                    if(gen.next){
+                        var ret = gen.next();
+                        if(ret.done){
+                            cb();
+                        }else{
+                            ret.value(next);
+                        }
+                    }
+                }
+            }
+        }
+
+        co(function* (){
+            yield delay(300);
+            yield delay(1000);
+            yield delay(1300);
+        })(function(){
+            console.log('done........');
+        });
+
+    </script>
+</head>
+
+<body>
+    <h1>hello generator</h1>
+</body>
+
+</html>
